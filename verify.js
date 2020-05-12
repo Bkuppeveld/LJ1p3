@@ -1,5 +1,7 @@
 // Run function when DOM Content has loaded _> all the HTML files and such are loaded
 document.addEventListener('DOMContentLoaded', init);
+function onSubmit()
+{
 
 // Function to run when DOM Content has loaded
 function init(event) {
@@ -20,16 +22,19 @@ function validateForm(event) {
 	// If username is empty
 	if(!regForm['username'].value) {
 		errorMessages.push('* Please enter Username');
+		return false;
 	}
 
 	// If password1 is empty
 	if(!regForm['password1'].value) {
 		errorMessages.push('* Please enter Password1');
+		return false;
 	}
 
 	// If password2 is empty
 	if(!regForm['password2'].value) {
 		errorMessages.push('* Please enter Password2');
+		return false;
 	}
 
 	// If both passwords have values
@@ -37,6 +42,7 @@ function validateForm(event) {
 		// If passwords don't match
 		if(regForm['password1'].value != regForm['password2'].value) {
 			errorMessages.push('* Passwords do not match');
+			return false;
 		}
 	}
 
@@ -45,23 +51,29 @@ function validateForm(event) {
 	for(var i=0; i < regForm['gender'].length; i++) {
 		if(regForm['gender'][i].checked) {
 			isChecked = true; // Found a checked radio button!
+			return false;
 			break; // No need to continue the search
+			
 		}
+		
 	}
 
 	// If a gender selection was not found
 	if(!isChecked) {
 		errorMessages.push('* Please choose your gender');
+		return false;
 	}
   
   // If selection has no value
   if(!regForm['continent'].value) {
-      errorMessages.push('* Please select your location');
+	  errorMessages.push('* Please select your location');
+	  return false;
   }
 
 	// If description is empty
 	if(!regForm['description'].value) {
 		errorMessages.push('* Please enter a description about you');
+		return false;
 	}
 
   // Show error messages
@@ -99,4 +111,6 @@ function displayErrors(errors) {
 	messageString += '</ul>';
 
 	errorBox.innerHTML = messageString;
+}
+return true;
 }
